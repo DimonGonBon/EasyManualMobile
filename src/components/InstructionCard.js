@@ -18,6 +18,8 @@ export default function InstructionCard({
   const stepsCount = instruction.steps ? instruction.steps.length : 0;
 
   const handleDelete = () => {
+    if (!onDelete) return;
+
     Alert.alert(
       'Usuń instrukcję',
       'Czy na pewno chcesz usunąć tę instrukcję?',
@@ -46,9 +48,11 @@ export default function InstructionCard({
             {instruction.title}
           </Text>
 
-          <Pressable style={styles.deleteBtn} onPress={handleDelete}>
-            <Text style={styles.deleteText}>×</Text>
-          </Pressable>
+          {onDelete ? (
+            <Pressable style={styles.deleteBtn} onPress={handleDelete}>
+              <Text style={styles.deleteText}>×</Text>
+            </Pressable>
+          ) : null}
         </View>
 
         <Text style={styles.category}>{instruction.category}</Text>

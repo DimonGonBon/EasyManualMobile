@@ -9,6 +9,8 @@ import HomeScreen from '../screens/HomeScreen';
 import AddInstructionScreen from '../screens/AddInstructionScreen';
 import InstructionDetailsScreen from '../screens/InstructionDetailsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import LibraryScreen from '../screens/LibraryScreen';
+import PublicInstructionDetailsScreen from '../screens/PublicInstructionDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,45 +43,60 @@ export default function AppNavigator({ currentUser, setCurrentUser }) {
             </Stack.Screen>
           </>
         ) : (
-          <>
-            <Stack.Screen name="Home">
-              {(props) => (
-                <HomeScreen
-                  {...props}
-                  user={currentUser}
-                  onLogout={() => {
-                    setCurrentUser(null);
-                  }}
-                  onUserUpdate={setCurrentUser}
-                />
-              )}
-            </Stack.Screen>
+          
+            <>
+  <Stack.Screen name="Home">
+    {(props) => (
+      <HomeScreen
+        {...props}
+        user={currentUser}
+        onLogout={() => {
+          setCurrentUser(null);
+        }}
+        onUserUpdate={setCurrentUser}
+      />
+    )}
+  </Stack.Screen>
 
-            <Stack.Screen name="AddInstruction">
-              {(props) => (
-                <AddInstructionScreen {...props} user={currentUser} />
-              )}
-            </Stack.Screen>
+  <Stack.Screen name="Library">
+    {(props) => <LibraryScreen {...props} />}
+  </Stack.Screen>
+  
 
-            <Stack.Screen name="InstructionDetails">
-              {(props) => (
-                <InstructionDetailsScreen {...props} user={currentUser} />
-              )}
-            </Stack.Screen>
+  <Stack.Screen name="AddInstruction">
+    {(props) => (
+      <AddInstructionScreen {...props} user={currentUser} />
+    )}
+  </Stack.Screen>
 
-            <Stack.Screen name="Profile">
-              {(props) => (
-                <ProfileScreen
-                  {...props}
-                  user={currentUser}
-                  onUserUpdate={setCurrentUser}
-                  onLogout={() => {
-                    setCurrentUser(null);
-                  }}
-                />
-              )}
-            </Stack.Screen>
-          </>
+  <Stack.Screen name="InstructionDetails">
+    {(props) => (
+      <InstructionDetailsScreen {...props} user={currentUser} />
+    )}
+  </Stack.Screen>
+
+<Stack.Screen name="PublicInstructionDetails">
+  {(props) => (
+    <PublicInstructionDetailsScreen
+      {...props}
+      user={currentUser}
+    />
+  )}
+</Stack.Screen>
+
+  <Stack.Screen name="Profile">
+    {(props) => (
+      <ProfileScreen
+        {...props}
+        user={currentUser}
+        onUserUpdate={setCurrentUser}
+        onLogout={() => {
+          setCurrentUser(null);
+        }}
+      />
+    )}
+  </Stack.Screen>
+</>
         )}
       </Stack.Navigator>
     </NavigationContainer>

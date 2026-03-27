@@ -120,6 +120,16 @@ useFocusEffect(
           placeholder="Szukaj..."
         />
 
+        <View style={styles.topActions}>
+  <Button
+    variant="secondary"
+    onPress={() => navigation.navigate('Library')}
+    fullWidth
+  >
+    Otwórz bibliotekę
+  </Button>
+</View>
+
         <View style={styles.listContainer}>
           {filteredInstructions.length > 0 ? (
             filteredInstructions.map((instruction) => (
@@ -176,6 +186,10 @@ useFocusEffect(
 }
 
 const styles = StyleSheet.create({
+
+  topActions: {
+  marginBottom: spacing.md,
+},
   container: {
     flex: 1,
     backgroundColor: colors.background,

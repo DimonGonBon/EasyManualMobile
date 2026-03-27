@@ -10,6 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { LibraryService } from '../services/LibraryService';
 
 import Button from '../components/Button';
 import {
@@ -30,6 +31,23 @@ export default function InstructionDetailsScreen({
   const [currentInstruction, setCurrentInstruction] = useState(instruction);
   const [newStepText, setNewStepText] = useState('');
   const [showAddStep, setShowAddStep] = useState(false);
+
+
+
+
+const handlePublishInstruction = async () => {
+  const result = await LibraryService.publishInstruction(user, currentInstruction);
+
+  if (result.success) {
+    Alert.alert(
+      'Sukces',
+      'Instrukcja została opublikowana w bibliotece publicznej'
+    );
+  } else {
+    Alert.alert('Błąd', result.error);
+  }
+};
+
 
 const loadInstruction = useCallback(async () => {
   const updated = await getInstructionById(user?.id, instruction.id);
@@ -164,6 +182,16 @@ useEffect(() => {
               <Text style={styles.emptyStepsText}>Brak kroków w tej instrukcji</Text>
             </View>
           )}
+
+          <View style={{ marginTop: 16 }}>
+  <Button
+    variant="secondary"
+    onPress={handlePublishInstruction}
+    fullWidth
+  >
+    Udostępnij do biblioteki
+  </Button>
+</View>
 
           {!showAddStep ? (
             <Pressable
